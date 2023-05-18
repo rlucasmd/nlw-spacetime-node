@@ -1,13 +1,12 @@
 import fastify from "fastify";
-import { PrismaClient } from "@prisma/client";
+import { memoriesRoutes } from "./routes/memories";
 
 const PORT = process.env.PORT || 3000;
 
 const app = fastify();
-const prisma = new PrismaClient({ log: ["query"] });
 
-prisma.$queryRaw`SELECT 1`;
-console.log("📦 database is successfully connected.");
+app.register(memoriesRoutes);
+
 app
   .listen({
     port: +PORT,
